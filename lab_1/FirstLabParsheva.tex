@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage[russian]{babel}
+\usepackage{amsmath, amssymb}
+\begin{document}
+
+\textbf{Задача 22. Паршева.} Смоделировать вынужденное колебание трёхмерной упругой среды в области пространства $\Omega = \{(x, y, z) \in \RR^3 \mid 0 \le x \le \pi,\; 0 \le y \le \pi,\; 0 \le z \le \pi\}$ во времени $t \ge 0$. Искомая функция $u(x, y, z, t)$ описывает смещение точки с координатами $(x, y, z)$ в момент времени $t$.
+\begin{equation*}
+    \begin{cases}
+        u_{tt} = u_{xx} + u_{yy} + u_{zz} - 0.5\sin(2t)\sin(x)\sin(y)\sin(z), \\
+        (x, y, z) \in \Omega, t > 0, \\
+        u(0, y, z, t) = u(\pi, y, z, t) = t, \\
+        u(x, 0, z, t) = u(x, \pi, z, t) = t, \\
+        u(x, y, 0, t) = u(x, y, \pi, t) = t, \\
+        u(x, y, z, 0) = \sin(x)\sin(y)\sin(z), \\
+        u_t(x, y, z, 0) = (\sqrt{3} + 1)\sin(x)\sin(y)\sin(z) + 1.
+    \end{cases}
+    \label{eq:problem}
+\end{equation*}
+
+Точное решение: $u_0(x,y,z,t) = t + \Bigl[ \cos\bigl(\sqrt{3}\,t\bigr) + \sin\bigl(\sqrt{3}\,t\bigr) + \frac{1}{2}\sin(2t) \Bigr] \sin(x)\sin(y)\sin(z)$
+
+\end{document}

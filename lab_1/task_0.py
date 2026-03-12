@@ -22,15 +22,15 @@ def solve_wave_3d(N = 50, tau = None, T = 1.0, save_frames = False):
     z = np.linspace(0, L, N + 1)
     
     if tau is None:
-        tau = 0.9 * h / np.sqrt(3)
+        tau = 1.5 * h / np.sqrt(3)
     
     Nt = int(np.ceil(T / tau))
-    tau = T / Nt  # Корректировка для точного попадания в T
+    # tau = T / Nt  # Корректировка для точного попадания в T
     sigma = tau**2 / h**2
     
     if sigma > 1.0 / 3.0 + 1e-10:
         print(f"Нарушено условие Куранта: σ = {sigma:.4f} > 1/3")
-    
+
     # Три временных слоя
     u_prev = np.zeros((N + 1, N + 1, N + 1))
     u_curr = np.zeros((N + 1, N + 1, N + 1))
@@ -99,8 +99,7 @@ def compute_error(u_num, x, y, z, t):
     error = u_num - u_ex
     
     h = x[1] - x[0]
-    l2 = np.sqrt(np.sum(error**2) * h**3)  # Дискретная L2-норма
-    
+    l2 = np.sqrt(np.sum(error**2) * h**3)
     return l2, u_ex
 
 """Проверка сходимости схемы"""
@@ -112,7 +111,7 @@ def convergence_test():
     
     for N in [20, 40, 80, 160]:
         h = np.pi / N
-        tau = 0.9 * h / np.sqrt(3)
+        tau = 1.5 * h / np.sqrt(3)
         sigma = tau**2 / h**2
         
         start_time = time.time()
@@ -138,7 +137,6 @@ def convergence_test():
 
 """Построение графика сходимости"""
 def plot_convergence(results):
-    """Построение графика сходимости (L2-ошибка vs h)"""
     plt.rcParams.update({'font.size': 12})
     
     h_vals = np.array([r[1] for r in results])
@@ -165,8 +163,8 @@ def plot_convergence(results):
     plt.tight_layout()
     plt.show()
 
+"""Визуализация решения"""
 def visualize_solution():
-    """Визуализация решения"""
     N = 40
     T = 2.0
 
@@ -263,5 +261,8 @@ def visualize_solution():
 
 if __name__ == "__main__":
     results = convergence_test()
-    plot_convergence(results)
-    anim = visualize_solution()
+
+    # start = time.perf_counter()
+    # print(f"время {time.perf_counter() - start:.2f} с")
+    # plot_convergence(results)
+    # anim = visualize_solution()
